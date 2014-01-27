@@ -49,14 +49,14 @@ namespace nt2 { namespace ext
       nt2::worker<tag::inner_fold_,BackEnd,Site,Out,In,Neutral,Bop,Uop>
       w(out, in, neutral, bop, uop);
 
-//      if((obound > grain) && (8*grain < bound*obound))
-//      {
+     if((obound > grain) && (8*grain < bound*obound))
+     {
         nt2::spawner< tag::transform_, BackEnd > s;
         s(w,0,obound,grain);
-//      }
-//
-//      else
-//      w(0,obound);
+     }
+
+     else
+     w(0,obound);
 
     }
 
