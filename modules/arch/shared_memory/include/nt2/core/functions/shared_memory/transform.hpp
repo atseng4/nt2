@@ -38,13 +38,13 @@ namespace nt2 { namespace ext
       std::size_t top_cache_line_size = config::top_cache_size(2)/sizeof(typename Out::value_type);
       if(!top_cache_line_size) top_cache_line_size = 1;
 
-      std::size_t grain = top_cache_line_size;
+      std::size_t grain = 4 /*top_cache_line_size*/;
 
       std::size_t it = range.first;
       std::size_t sz = range.second;
 
       nt2::worker<tag::transform_,BackEnd,Site,Out,In> w(out,in);
-      nt2::spawner<tag::transform_, BackEnd> s;
+      nt2::spawner<tag::transform_, BackEnd > s;
 
 //      if(sz > grain)
           s(w,it,sz,grain);
