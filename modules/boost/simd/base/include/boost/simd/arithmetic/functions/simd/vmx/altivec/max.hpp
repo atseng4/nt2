@@ -19,15 +19,15 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::max_
                                     , boost::simd::tag::vmx_
                                     , (A0)
-                                    , ((simd_<single_<A0>,boost::simd::tag::vmx_>))
-                                      ((simd_<single_<A0>,boost::simd::tag::vmx_>))
+                                    , ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
+                                      ((simd_<arithmetic_<A0>,boost::simd::tag::vmx_>))
                                     )
   {
     typedef A0 result_type;
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return vec_max(a0,a1);
+      return vec_max(a0(),a1());
     }
   };
 } } }
