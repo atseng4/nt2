@@ -14,6 +14,11 @@
 #include <boost/simd/arithmetic/functions/max.hpp>
 #include <boost/dispatch/attributes.hpp>
 
+#if !defined(BOOST_SIMD_NO_NANS)
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::max_
@@ -27,7 +32,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      #if !defined(BOOST_SIMD_NO_NANS)
+      return if_else(is_nan(a0), a1, A0(vec_max(a0(),a1())));
+      #else
       return vec_max(a0(),a1());
+      #endif
     }
   };
 } } }
